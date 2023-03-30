@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ServiceTest {
 
-    static Service service;
+    private Service service;
 
     @BeforeAll
     static void setUp(){
@@ -34,7 +34,7 @@ public class ServiceTest {
     }
 
     @Test
-    void testAddStudent(){
+    public void testAddStudent(){
         service.saveStudent("5", "Andrei", 936);
         List<Student> studenti = new ArrayList<>();
         service.findAllStudents().forEach(studenti::add);
@@ -43,7 +43,7 @@ public class ServiceTest {
     }
 
     @Test
-    void testAddStudentExistingId(){
+    public void testAddStudentExistingId(){
         service.saveStudent("1", "Andrei", 936);
         List<Student> studenti = new ArrayList<>();
         service.findAllStudents().forEach(studenti::add);
