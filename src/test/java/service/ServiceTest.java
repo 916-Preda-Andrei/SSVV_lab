@@ -18,10 +18,7 @@ import java.util.List;
 
 public class ServiceTest {
 
-    static Service service;
-
-    @BeforeAll
-    static void setUp(){
+    private Service setUp(){
         Validator<Student> studentValidator = new StudentValidator();
         Validator<Tema> temaValidator = new TemaValidator();
         Validator<Nota> notaValidator = new NotaValidator();
@@ -30,11 +27,12 @@ public class ServiceTest {
         TemaXMLRepository fileRepository2 = new TemaXMLRepository(temaValidator, "src/main/resources/repository/teme.xml");
         NotaXMLRepository fileRepository3 = new NotaXMLRepository(notaValidator, "src/main/resources/repository/note.xml");
 
-        service = new Service(fileRepository1, fileRepository2, fileRepository3);
+        return new Service(fileRepository1, fileRepository2, fileRepository3);
     }
 
     @Test
     public void testAddStudent(){
+        Service service = setUp();
         service.saveStudent("5", "Andrei", 936);
         List<Student> studenti = new ArrayList<>();
         service.findAllStudents().forEach(studenti::add);
@@ -44,6 +42,7 @@ public class ServiceTest {
 
     @Test
     public void testAddStudentExistingId(){
+        Service service = setUp();
         service.saveStudent("1", "Andrei", 936);
         List<Student> studenti = new ArrayList<>();
         service.findAllStudents().forEach(studenti::add);
