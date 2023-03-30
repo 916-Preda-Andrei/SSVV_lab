@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ServiceTest {
 
-    private Service service;
+    static Service service;
 
     @BeforeAll
     static void setUp(){
