@@ -25,7 +25,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class RepoTests {
+public class RepoTestsIncremental {
     private StudentXMLRepository realStudentRepository;
     @Mock
     private StudentXMLRepository mockStudentRepository;
@@ -62,7 +62,7 @@ public class RepoTests {
     public void addGradeTests() {
         service = new Service(this.mockStudentRepository, this.mockAssignmentRepository, this.realGradeRepository);
 
-        Student student = new Student("1", "IONEL", 935);
+        Student student = new Student("1", "Marcel", 935);
         Tema assignment = new Tema("1", "DESCRIPTION", 12, 1);
 
         when(this.mockStudentRepository.findOne("1")).thenReturn(student);
@@ -86,7 +86,7 @@ public class RepoTests {
     public void addStudentTests() throws IOException {
         service = new Service(this.realStudentRepository, this.mockAssignmentRepository, this.mockGradeRepository);
 
-        assertDoesNotThrow(() -> service.saveStudent("1", "IONEL", 935));
+        assertDoesNotThrow(() -> service.saveStudent("1", "Marcel", 935));
 
         StudentXMLRepository studentRepo = new StudentXMLRepository(new StudentValidator(), TestUtils.Students);
         Iterable<Student> students = studentRepo.findAll();
@@ -95,7 +95,7 @@ public class RepoTests {
 
         assertEquals(studentList.size(), 1);
         assertEquals(studentList.get(0).getID(), "1");
-        assertEquals(studentList.get(0).getNume(), "IONEL");
+        assertEquals(studentList.get(0).getNume(), "Marcel");
         assertEquals(studentList.get(0).getGrupa(), 935);
     }
 
@@ -103,7 +103,7 @@ public class RepoTests {
     public void addAssignmentTests() {
         service = new Service(this.realStudentRepository, this.realAssignmentRepository, this.mockGradeRepository);
 
-        assertDoesNotThrow(() -> service.saveStudent("1", "IONEL", 935));
+        assertDoesNotThrow(() -> service.saveStudent("1", "Marcel", 935));
         assertDoesNotThrow(() -> service.saveTema("1", "DESCRIPTION", 12, 1));
 
         StudentXMLRepository studentRepo = new StudentXMLRepository(new StudentValidator(), TestUtils.Students);
@@ -118,7 +118,7 @@ public class RepoTests {
 
         assertEquals(studentList.size(), 1);
         assertEquals(studentList.get(0).getID(), "1");
-        assertEquals(studentList.get(0).getNume(), "IONEL");
+        assertEquals(studentList.get(0).getNume(), "Marcel");
         assertEquals(studentList.get(0).getGrupa(), 935);
 
         assertEquals(assignmentList.size(), 1);
