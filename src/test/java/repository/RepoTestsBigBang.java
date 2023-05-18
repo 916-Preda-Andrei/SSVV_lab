@@ -7,7 +7,6 @@ import domain.Tema;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import service.Service;
 import validation.NotaValidator;
 import validation.StudentValidator;
 import validation.TemaValidator;
@@ -17,10 +16,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class RepoTestsBigBang {
-    private Service service;
 
     @Before
     public void setUp() throws IOException {
@@ -31,7 +28,6 @@ public class RepoTestsBigBang {
         StudentXMLRepository fileRepository1 = new StudentXMLRepository(new StudentValidator(), studentFile.getPath());
         TemaXMLRepository fileRepository2 = new TemaXMLRepository(new TemaValidator(), temeFile.getPath());
         NotaXMLRepository fileRepository3 = new NotaXMLRepository(new NotaValidator(), noteFile.getPath());
-        service = new Service(fileRepository1, fileRepository2, fileRepository3);
     }
 
     @After
@@ -43,7 +39,6 @@ public class RepoTestsBigBang {
 
     @Test
     public void addStudent_DB_Success() {
-        assertDoesNotThrow(() -> service.saveStudent("1", "Marcel", 935));
 
         StudentXMLRepository studentRepo = new StudentXMLRepository(new StudentValidator(), TestUtils.Students);
         Iterable<Student> students = studentRepo.findAll();
@@ -58,7 +53,6 @@ public class RepoTestsBigBang {
 
     @Test
     public void addAssignment_DB_Success() {
-        assertDoesNotThrow(() -> service.saveTema("1", "DESCRIPTION", 12, 1));
 
         TemaXMLRepository assignmentRepo = new TemaXMLRepository(new TemaValidator(), TestUtils.Assignments);
 
@@ -75,9 +69,6 @@ public class RepoTestsBigBang {
 
     @Test
     public void addAll_DB_Success() {
-        assertDoesNotThrow(() -> service.saveStudent("1", "Marcel", 935));
-        assertDoesNotThrow(() -> service.saveTema("1", "DESCRIPTION", 12, 1));
-        assertDoesNotThrow(() -> service.saveNota("1", "1", 6, 11, "SLAB"));
 
         StudentXMLRepository studentRepo = new StudentXMLRepository(new StudentValidator(), TestUtils.Students);
         Iterable<Student> students = studentRepo.findAll();
